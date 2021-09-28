@@ -1,0 +1,33 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<form action="/simple" id="products">
+    <label for="userId">userId:</label>
+    <input type="text" id="userId" name="userId" value=1>
+    <input type="submit">
+</form>
+<br>
+
+<label for="products">Choose a product:</label>
+<select id="products" name="products" form="products">
+    <option value="p1_100">Product1 - 100 euro</option>
+    <option value="p2_90">Product2 - 90 euro</option>
+    <option value="p3_80">Product3 - 80 euro</option>
+    <option value="p4_70">Product4 - 70 euro</option>
+</select>
+
+
+<script>
+    let id = document.getElementById('#userId')
+    let product = document.getElementById('#products')
+    products = JSON.stringify({ userId: id, products: product})
+    $(document).ready(function () {
+        $("button").click(function () {
+            $.ajax({
+                url: "http://localhost:1337/simple", type: 'POST', data: products, async: true, success: function (result) {
+                    $("div").html(result);
+                }
+            });
+        });
+    });
+</script><br/><br/><br/>
+<button>Send Content</button>
